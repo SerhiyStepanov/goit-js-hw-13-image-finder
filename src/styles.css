@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+ul {
+  margin-left: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 body {
   font-size: 14px;
   line-height: 1.4;
@@ -17,14 +26,10 @@ img {
 }
 
 .gallery {
-  /* display: flex; */
-  /* flex-wrap: wrap; */
   display: grid;
   grid-template-columns: auto auto auto;
 }
 
 .photo-card {
-  /* width: calc((100% - 30px) / 3); */
-  /* width: 100% / 3; */
-  margin: 5px;
+  margin: 10px;
 }
