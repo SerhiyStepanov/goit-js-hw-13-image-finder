@@ -9,9 +9,10 @@ const cardContainer = document.querySelector('.gallery')
 searchInputEl.addEventListener('input',onInputSearch)
 
 function onInputSearch(event) {
-    const sesrchQuery = event.currentTarget.value
+    const searchQuery = event.currentTarget.value
+    console.log(searchQuery)
 
-    fetchCard(sesrchQuery)
+    fetchCard(searchQuery)
     .then(renderCard)
     .catch(onError)
     .finally()
@@ -32,3 +33,4 @@ function renderCard(cards) {
 function onError() {
     alert('Упс . Щось пійшло не так !')
 }
+
