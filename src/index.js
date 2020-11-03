@@ -5,7 +5,16 @@ const BASE_URL = 'https://pixabay.com/api/?image_type=photo&orientation=horizont
 const inputEl = document.querySelector('INPUT') 
 const cardContainer = document.querySelector('.gallery')
 
-fetchCard().then(renderCard)
+inputEl.addEventListener('input',onInputSearch)
+
+fetchCard()
+    .then(renderCard)
+    .catch(error => console.log(error))
+
+function onInputSearch(event) {
+    console.log(event.currentTarget.value)
+    const search = event.currentTarget.value
+}
 
 function fetchCard() {
         return fetch(`${BASE_URL}&q=dog&page=1&per_page=12&key=8315600-a916a243d8ea2edafddc43bfd`)
@@ -16,3 +25,4 @@ function renderCard(cards) {
     const markup = templateCards(cards.hits)
     cardContainer.innerHTML = markup
 }
+
