@@ -7,4 +7,4 @@ var e,t=arguments[3];!function(t,r){"object"==typeof exports&&"object"==typeof m
 },{"handlebars/dist/handlebars.runtime":"pAws"}],"Focm":[function(require,module,exports) {
 "use strict";var e=t(require("./template-cards.hbs"));function t(e){return e&&e.__esModule?e:{default:e}}var n="https://pixabay.com/api/?image_type=photo&orientation=horizontal",r=document.querySelector("#search-form"),a=document.querySelector("INPUT"),o=document.querySelector(".gallery");function c(e){var t=e.currentTarget.value;console.log(t),u(t).then(i).catch(l).finally()}function u(e){return fetch("".concat(n,"&q=").concat(e,"&page=1&per_page=12&key=8315600-a916a243d8ea2edafddc43bfd")).then(function(e){return e.json()})}function i(t){var n=(0,e.default)(t.hits);o.innerHTML=n}function l(){alert("Упс . Щось пійшло не так !")}a.addEventListener("input",c);
 },{"./template-cards.hbs":"mLka"}]},{},["Focm"], null)
-//# sourceMappingURL=/src.df6b3d1d.js.map
+//# sourceMappingURL=/src.e7443f1b.js.map
