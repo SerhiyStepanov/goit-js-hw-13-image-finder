@@ -14,26 +14,51 @@ btnLoadMore.addEventListener('click', onClickBtnLoadMore)
 
 
 
-function onInputSearch(event) {
+// function onInputSearch(event) {
+//     if (event.currentTarget.value === '') {
+//         clearContainer()
+//        return 
+//     }
+//     apiService.searchQuery = event.currentTarget.value
+
+//     apiService.resetPage()
+//     apiService.fetchCard().then(renderCard).catch(onError)
+    
+// }
+
+async function onInputSearch(event) {
     if (event.currentTarget.value === '') {
-        cardContainer.innerHTML = ""
+        clearContainer()
        return 
     }
     apiService.searchQuery = event.currentTarget.value
-
     apiService.resetPage()
-
-    apiService.fetchCard().then(renderCard).catch(onError)
-    
+    try {
+    const images = await apiService.fetchCard()
+    const render = await renderCard(images)
+    } catch (error) {
+        onError()
+    }
     
 }
 
 
-function onClickBtnLoadMore(event) {
+// function onClickBtnLoadMore(event) {
+//     apiService.incrementPage()
+//     apiService.fetchCard()
+//         .then(renderCard)
+//         .catch(onError)
+// }
 
+async function onClickBtnLoadMore(event) {
     apiService.incrementPage()
-
-    apiService.fetchCard().then(renderCard).catch(onError)
+    try {  
+        const images = await apiService.fetchCard()
+        const render = await renderCard(images)
+    } catch (error) {
+        onError
+    }
+        
 }
 
 
@@ -44,4 +69,8 @@ function renderCard(cards) {
 
 function onError() {
     alert('Упс . Щось пійшло не так !')
+}
+
+function clearContainer() {
+   cardContainer.innerHTML = "" 
 }

@@ -5,13 +5,21 @@ export default class ApiService {
         this.page = 1;
     }
 
-    fetchCard() {
+    // fetchCard() {
+    //     const BASE_URL = 'https://pixabay.com/api/?image_type=photo&orientation=horizontal'
+    //     return fetch(`${BASE_URL}&q=${this.query}&page=${this.page}&per_page=12&key=8315600-a916a243d8ea2edafddc43bfd`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             return data.hits
+    //         })
+    // } 
+
+    async fetchCard() {
         const BASE_URL = 'https://pixabay.com/api/?image_type=photo&orientation=horizontal'
-        return fetch(`${BASE_URL}&q=${this.query}&page=${this.page}&per_page=12&key=8315600-a916a243d8ea2edafddc43bfd`)
-            .then(res => { return res.json() })
-            .then(data => {
-                return data.hits
-            })
+        const response = await fetch(`${BASE_URL}&q=${this.query}&page=${this.page}&per_page=12&key=8315600-a916a243d8ea2edafddc43bfd`)
+        const data = await response.json()
+        const rezult = await data.hits
+            return rezult
     }
 
     incrementPage() {
