@@ -34,7 +34,6 @@ function onClickBtnLoadMore(event) {
     apiService.incrementPage()
 
     apiService.fetchCard().then(renderCard).catch(onError)
-    
 }
 
 
