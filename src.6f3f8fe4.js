@@ -9,4 +9,4 @@ var e,t=arguments[3];!function(t,r){"object"==typeof exports&&"object"==typeof m
 },{}],"Focm":[function(require,module,exports) {
 "use strict";var e=t(require("./template-cards.hbs")),r=t(require("./apiService.js"));function t(e){return e&&e.__esModule?e:{default:e}}var n=document.querySelector("#search-form"),c=document.querySelector("INPUT"),u=document.querySelector(".gallery"),a=document.querySelector(".load-more"),d=new r.default;function o(e){""!==e.currentTarget.value?(d.searchQuery=e.currentTarget.value,d.resetPage(),d.fetchCard().then(l).catch(f)):u.innerHTML=""}function i(e){d.incrementPage(),d.fetchCard().then(l).catch(f)}function l(r){u.insertAdjacentHTML("beforeend",(0,e.default)(r))}function f(){alert("Упс . Щось пійшло не так !")}c.addEventListener("input",o),a.addEventListener("click",i);
 },{"./template-cards.hbs":"mLka","./apiService.js":"WgT8"}]},{},["Focm"], null)
-//# sourceMappingURL=/goit-js-hw-13-image-finder/src.191cf552.js.map
+//# sourceMappingURL=/goit-js-hw-13-image-finder/src.6f3f8fe4.js.map
