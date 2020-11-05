@@ -1,36 +1,47 @@
 import templateCards from './template-cards.hbs'
+import ApiService from './apiService.js'
 
-const BASE_URL = 'https://pixabay.com/api/?image_type=photo&orientation=horizontal'
 
 const form = document.querySelector('#search-form')
 const searchInputEl = document.querySelector('INPUT') 
 const cardContainer = document.querySelector('.gallery')
+const btnLoadMore = document.querySelector('.load-more')
 
-searchInputEl.addEventListener('input',onInputSearch)
+const apiService = new ApiService()
+
+searchInputEl.addEventListener('input', onInputSearch)
+btnLoadMore.addEventListener('click', onClickBtnLoadMore)
+
+
 
 function onInputSearch(event) {
-    const searchQuery = event.currentTarget.value
-    console.log(searchQuery)
+    if (event.currentTarget.value === '') {
+        cardContainer.innerHTML = ""
+       return 
+    }
+    apiService.searchQuery = event.currentTarget.value
 
-    fetchCard(searchQuery)
-    .then(renderCard)
-    .catch(onError)
-    .finally()
+    apiService.resetPage()
+
+    apiService.fetchCard().then(renderCard).catch(onError)
+    
+    
 }
 
 
-function fetchCard(search) {
-        return fetch(`${BASE_URL}&q=${search}&page=1&per_page=12&key=8315600-a916a243d8ea2edafddc43bfd`)
-        .then(res => {return res.json()})
+function onClickBtnLoadMore(event) {
+
+    apiService.incrementPage()
+
+    apiService.fetchCard().then(renderCard).catch(onError)
+    
 }
 
 
 function renderCard(cards) {
-    const markup = templateCards(cards.hits)
-    cardContainer.innerHTML = markup
+    cardContainer.insertAdjacentHTML('beforeend',templateCards(cards))
 }
 
 function onError() {
     alert('Упс . Щось пійшло не так !')
 }
-
