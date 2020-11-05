@@ -42,6 +42,7 @@ function renderCard(cards) {
     cardContainer.insertAdjacentHTML('beforeend',templateCards(cards))
 }
 
+
 function onError() {
     alert('Упс . Щось пійшло не так !')
 }
