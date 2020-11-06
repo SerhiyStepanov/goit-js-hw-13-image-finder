@@ -40,7 +40,6 @@ async function onInputSearch(event) {
         const images = await apiService.fetchCard()
         // window.scrollTo({ top: 0, behavior: 'instant' })
         renderCard(images)
-        
     } catch (error) {
         onError()
     }
@@ -58,7 +57,6 @@ async function onClickBtnLoadMore(event) {
     apiService.incrementPage()
     try {  
         const images = await apiService.fetchCard()
-        window.scrollTo({ top: 0, behavior: 'instant' })
         renderCard(images)
     } catch (error) {
         onError
@@ -67,7 +65,9 @@ async function onClickBtnLoadMore(event) {
 
 
 function renderCard(cards) {
+    window.scrollTo({ top: 0, behavior: 'instant' })
     cardContainer.insertAdjacentHTML('beforeend', templateCards(cards))
+    
 }
 
 function onError() {
