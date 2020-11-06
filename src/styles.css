@@ -54,8 +54,11 @@ button {
   width: 16px;
 }
 
+/* LOADER_ELLIPS */
+
+/*
 .loader-ellips {
-  font-size: 15px; /* change size here */
+  font-size: 15px; 
   position: relative;
   width: 4em;
   height: 1em;
@@ -67,7 +70,7 @@ button {
   width: 1em;
   height: 1em;
   border-radius: 0.5em;
-  background: #555555; /* change color here */
+  background: #555555;
   position: absolute;
   animation-duration: 0.5s;
   animation-timing-function: ease;
@@ -113,3 +116,4 @@ button {
   animation-name: reveal;
   animation-direction: reverse;
 }
+ */

@@ -1,5 +1,6 @@
 import templateCards from './template-cards.hbs'
 import ApiService from './apiService.js'
+import debounce from 'lodash.debounce'
 
 
 const form = document.querySelector('#search-form')
@@ -9,7 +10,7 @@ const btnLoadMore = document.querySelector('.load-more')
 
 const apiService = new ApiService()
 
-searchInputEl.addEventListener('input', onInputSearch)
+searchInputEl.addEventListener('input',debounce(onInputSearch,1000))
 btnLoadMore.addEventListener('click', onClickBtnLoadMore)
 
 
@@ -27,11 +28,11 @@ btnLoadMore.addEventListener('click', onClickBtnLoadMore)
 // }
 
 async function onInputSearch(event) {
-    if (event.currentTarget.value === '') {
+    if (event.target.value === '') {
         clearContainer()
        return 
     }
-    apiService.searchQuery = event.currentTarget.value
+    apiService.searchQuery = event.target.value
     apiService.resetPage()
     try {
     const images = await apiService.fetchCard()
