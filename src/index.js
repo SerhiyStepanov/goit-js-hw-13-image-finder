@@ -2,6 +2,7 @@ import templateCards from './template-cards.hbs'
 import ApiService from './apiService.js'
 import debounce from 'lodash.debounce'
 import * as basicLightbox from 'basiclightbox'
+import 'basiclightbox/dist/basicLightbox.min.css'
 
 
 const form = document.querySelector('#search-form')
@@ -78,9 +79,7 @@ function clearContainer() {
 }
 
 function onClickImage(event) {
-    console.log(event.target)
-    console.log(event.target.src)
-    if (event.target === 'IMG') {
+    if (event.target.nodeName === 'IMG') {
         const instance = basicLightbox.create(`<img src="${event.target.src}" width="800" height="600">`)
         instance.show()
     }
