@@ -17,7 +17,6 @@ cardContainer.addEventListener('click',onClickImage)
 btnLoadMore.addEventListener('click', onClickBtnLoadMore)
 
 
-
 // function onInputSearch(event) {
 //     if (event.currentTarget.value === '') {
 //         clearContainer()
@@ -38,12 +37,13 @@ async function onInputSearch(event) {
     apiService.searchQuery = event.target.value
     apiService.resetPage()
     try {
-    const images = await apiService.fetchCard()
-    const render = await renderCard(images)
+        const images = await apiService.fetchCard()
+        // window.scrollTo({ top: 0, behavior: 'instant' })
+        renderCard(images)
+        
     } catch (error) {
         onError()
     }
-    
 }
 
 
@@ -58,11 +58,11 @@ async function onClickBtnLoadMore(event) {
     apiService.incrementPage()
     try {  
         const images = await apiService.fetchCard()
-        const render = await renderCard(images)
+        window.scrollTo({ top: 0, behavior: 'instant' })
+        renderCard(images)
     } catch (error) {
         onError
-    }
-        
+    }  
 }
 
 
