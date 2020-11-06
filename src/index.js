@@ -1,6 +1,7 @@
 import templateCards from './template-cards.hbs'
 import ApiService from './apiService.js'
 import debounce from 'lodash.debounce'
+import * as basicLightbox from 'basiclightbox'
 
 
 const form = document.querySelector('#search-form')
@@ -10,7 +11,8 @@ const btnLoadMore = document.querySelector('.load-more')
 
 const apiService = new ApiService()
 
-searchInputEl.addEventListener('input',debounce(onInputSearch,1000))
+searchInputEl.addEventListener('input', debounce(onInputSearch, 1000))
+cardContainer.addEventListener('click',onClickImage)
 btnLoadMore.addEventListener('click', onClickBtnLoadMore)
 
 
@@ -73,4 +75,13 @@ function onError() {
 
 function clearContainer() {
    cardContainer.innerHTML = "" 
+}
+
+function onClickImage(event) {
+    console.log(event.target)
+    console.log(event.target.src)
+    if (event.target === 'IMG') {
+        const instance = basicLightbox.create(`<img src="${event.target.src}" width="800" height="600">`)
+        instance.show()
+    }
 }
