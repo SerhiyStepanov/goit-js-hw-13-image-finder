@@ -16,7 +16,11 @@ searchInputEl.addEventListener('input', debounce(onInputSearch, 1000))
 cardContainer.addEventListener('click',onClickImage)
 btnLoadMore.addEventListener('click', onClickBtnLoadMore)
 
-
+window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+});
+    
 // function onInputSearch(event) {
 //     if (event.currentTarget.value === '') {
 //         clearContainer()
@@ -34,12 +38,14 @@ async function onInputSearch(event) {
         clearContainer()
        return 
     }
+
     apiService.searchQuery = event.target.value
     apiService.resetPage()
+
     try {
         const images = await apiService.fetchCard()
-        // window.scrollTo({ top: 0, behavior: 'instant' })
         renderCard(images)
+        scrollTo()
     } catch (error) {
         onError()
     }
@@ -55,9 +61,11 @@ async function onInputSearch(event) {
 
 async function onClickBtnLoadMore(event) {
     apiService.incrementPage()
+    
     try {  
         const images = await apiService.fetchCard()
         renderCard(images)
+        scrollTo()
     } catch (error) {
         onError
     }  
@@ -65,7 +73,7 @@ async function onClickBtnLoadMore(event) {
 
 
 function renderCard(cards) {
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    // window.scrollTo({ top: 0, behavior: 'instant' })
     cardContainer.insertAdjacentHTML('beforeend', templateCards(cards))
     
 }
