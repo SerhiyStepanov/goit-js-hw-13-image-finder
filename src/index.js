@@ -16,10 +16,6 @@ searchInputEl.addEventListener('input', debounce(onInputSearch, 1000))
 cardContainer.addEventListener('click',onClickImage)
 btnLoadMore.addEventListener('click', onClickBtnLoadMore)
 
-window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth',
-});
     
 // function onInputSearch(event) {
 //     if (event.currentTarget.value === '') {
@@ -45,7 +41,10 @@ async function onInputSearch(event) {
     try {
         const images = await apiService.fetchCard()
         renderCard(images)
-        scrollTo()
+        scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+})
     } catch (error) {
         onError()
     }
@@ -65,7 +64,10 @@ async function onClickBtnLoadMore(event) {
     try {  
         const images = await apiService.fetchCard()
         renderCard(images)
-        scrollTo()
+        scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+})
     } catch (error) {
         onError
     }  
@@ -73,7 +75,6 @@ async function onClickBtnLoadMore(event) {
 
 
 function renderCard(cards) {
-    // window.scrollTo({ top: 0, behavior: 'instant' })
     cardContainer.insertAdjacentHTML('beforeend', templateCards(cards))
     
 }
@@ -87,8 +88,8 @@ function clearContainer() {
 }
 
 function onClickImage(event) {
-    console.log(event.target.src)
-    console.log(event.target.dataset.source)
+    // console.log(event.target.src)
+    // console.log(event.target.dataset.source)
     if (event.target.nodeName === 'IMG') {
         const instance = basicLightbox.create(`<img src="${event.target.dataset.source}" width="800" height="600">`)
         instance.show()
