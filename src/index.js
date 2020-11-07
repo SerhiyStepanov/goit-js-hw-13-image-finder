@@ -79,6 +79,8 @@ function clearContainer() {
 }
 
 function onClickImage(event) {
+    console.log(event.currentTarget)
+    console.log(event.target.src)
     if (event.target.nodeName === 'IMG') {
         const instance = basicLightbox.create(`<img src="${event.target.src}" width="800" height="600">`)
         instance.show()
