@@ -30,8 +30,8 @@ btnLoadMore.addEventListener("click", onClickBtnLoadMore);
 
 async function onInputSearch(event) {
   clearContainer();
+  btnLoadMore.classList.add("hidden");
   if (event.target.value === "") {
-    btnLoadMore.classList.add("hidden");
     return;
   }
 
@@ -71,10 +71,10 @@ async function onClickBtnLoadMore(event) {
       top: document.body.scrollHeight,
       behavior: "smooth",
     });
-    if (images.length < 12) {
-      console.log(images);
-      btnLoadMore.classList.add("hidden");
-    }
+    // if (images.length < 12) {
+    //   console.log(images);
+    //   btnLoadMore.classList.add("hidden");
+    // }
   } catch (error) {
     onError;
   }
