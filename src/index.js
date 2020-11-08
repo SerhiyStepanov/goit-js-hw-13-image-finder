@@ -93,8 +93,8 @@ function clearContainer() {
 }
 
 function onClickImage(event) {
-  // console.log(event.target.src)
-  // console.log(event.target.dataset.source)
+  console.log(event.target.src);
+  console.log(event.target.dataset.source);
   if (event.target.nodeName === "IMG") {
     const instance = basicLightbox.create(
       `<img src="${event.target.dataset.source}" width="800" height="600">`
