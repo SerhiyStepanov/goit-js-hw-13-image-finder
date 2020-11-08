@@ -1,6 +1,7 @@
 import templateCards from "./template-cards.hbs";
 import ApiService from "./apiService.js";
 import debounce from "lodash.debounce";
+// import throttle from "lodash.throttle";
 import * as basicLightbox from "basiclightbox";
 import "basiclightbox/dist/basicLightbox.min.css";
 
@@ -28,8 +29,8 @@ btnLoadMore.addEventListener("click", onClickBtnLoadMore);
 // }
 
 async function onInputSearch(event) {
+  clearContainer();
   if (event.target.value === "") {
-    clearContainer();
     btnLoadMore.classList.add("hidden");
     return;
   }
