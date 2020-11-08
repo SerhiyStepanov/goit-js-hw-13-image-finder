@@ -43,6 +43,10 @@ button {
   padding: 4px;
 }
 
+.hidden {
+  display: none;
+}
+
 .stats-item {
   display: flex;
   align-items: center;

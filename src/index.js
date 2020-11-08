@@ -1,55 +1,57 @@
-import templateCards from './template-cards.hbs'
-import ApiService from './apiService.js'
-import debounce from 'lodash.debounce'
-import * as basicLightbox from 'basiclightbox'
-import 'basiclightbox/dist/basicLightbox.min.css'
+import templateCards from "./template-cards.hbs";
+import ApiService from "./apiService.js";
+import debounce from "lodash.debounce";
+import * as basicLightbox from "basiclightbox";
+import "basiclightbox/dist/basicLightbox.min.css";
 
+const form = document.querySelector("#search-form");
+const searchInputEl = document.querySelector("INPUT");
+const cardContainer = document.querySelector(".gallery");
+const btnLoadMore = document.querySelector(".load-more");
 
-const form = document.querySelector('#search-form')
-const searchInputEl = document.querySelector('INPUT') 
-const cardContainer = document.querySelector('.gallery')
-const btnLoadMore = document.querySelector('.load-more')
+const apiService = new ApiService();
 
-const apiService = new ApiService()
+searchInputEl.addEventListener("input", debounce(onInputSearch, 1000));
+cardContainer.addEventListener("click", onClickImage);
+btnLoadMore.addEventListener("click", onClickBtnLoadMore);
 
-searchInputEl.addEventListener('input', debounce(onInputSearch, 1000))
-cardContainer.addEventListener('click',onClickImage)
-btnLoadMore.addEventListener('click', onClickBtnLoadMore)
-
-    
 // function onInputSearch(event) {
 //     if (event.currentTarget.value === '') {
 //         clearContainer()
-//        return 
+//        return
 //     }
 //     apiService.searchQuery = event.currentTarget.value
 
 //     apiService.resetPage()
 //     apiService.fetchCard().then(renderCard).catch(onError)
-    
+
 // }
 
 async function onInputSearch(event) {
-    if (event.target.value === '') {
-        clearContainer()
-       return 
-    }
+  if (event.target.value === "") {
+    clearContainer();
+    btnLoadMore.classList.add("hidden");
+    return;
+  }
 
-    apiService.searchQuery = event.target.value
-    apiService.resetPage()
+  apiService.searchQuery = event.target.value;
+  apiService.resetPage();
 
-    try {
-        const images = await apiService.fetchCard()
-        renderCard(images)
-        scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth',
-})
-    } catch (error) {
-        onError()
+  try {
+    const images = await apiService.fetchCard();
+    renderCard(images);
+    scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+    if (images.length === 12) {
+      console.log(images);
+      btnLoadMore.classList.remove("hidden");
     }
+  } catch (error) {
+    onError();
+  }
 }
-
 
 // function onClickBtnLoadMore(event) {
 //     apiService.incrementPage()
@@ -59,39 +61,39 @@ async function onInputSearch(event) {
 // }
 
 async function onClickBtnLoadMore(event) {
-    apiService.incrementPage()
-    
-    try {  
-        const images = await apiService.fetchCard()
-        renderCard(images)
-        scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth',
-})
-    } catch (error) {
-        onError
-    }  
+  apiService.incrementPage();
+
+  try {
+    const images = await apiService.fetchCard();
+    renderCard(images);
+    scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  } catch (error) {
+    onError;
+  }
 }
 
-
 function renderCard(cards) {
-    cardContainer.insertAdjacentHTML('beforeend', templateCards(cards))
-    
+  cardContainer.insertAdjacentHTML("beforeend", templateCards(cards));
 }
 
 function onError() {
-    alert('Упс . Щось пійшло не так !')
+  alert("Упс . Щось пійшло не так !");
 }
 
 function clearContainer() {
-   cardContainer.innerHTML = "" 
+  cardContainer.innerHTML = "";
 }
 
 function onClickImage(event) {
-    // console.log(event.target.src)
-    // console.log(event.target.dataset.source)
-    if (event.target.nodeName === 'IMG') {
-        const instance = basicLightbox.create(`<img src="${event.target.dataset.source}" width="800" height="600">`)
-        instance.show()
-    }
+  // console.log(event.target.src)
+  // console.log(event.target.dataset.source)
+  if (event.target.nodeName === "IMG") {
+    const instance = basicLightbox.create(
+      `<img src="${event.target.dataset.source}" width="800" height="600">`
+    );
+    instance.show();
+  }
 }
