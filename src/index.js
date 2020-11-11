@@ -45,8 +45,8 @@ async function onInputSearch(event) {
       top: document.body.scrollHeight,
       behavior: "smooth",
     });
+
     if (images.length === 12) {
-      console.log(images);
       btnLoadMore.classList.remove("hidden");
     }
   } catch (error) {
@@ -71,10 +71,10 @@ async function onClickBtnLoadMore(event) {
       top: document.body.scrollHeight,
       behavior: "smooth",
     });
-    // if (images.length < 12) {
-    //   console.log(images);
-    //   btnLoadMore.classList.add("hidden");
-    // }
+    if (images.length < 12) {
+      console.log(images);
+      btnLoadMore.classList.add("hidden");
+    }
   } catch (error) {
     onError;
   }
