@@ -14,7 +14,7 @@ const apiService = new ApiService();
 
 searchInputEl.addEventListener("input", debounce(onInputSearch, 1000));
 cardContainer.addEventListener("click", onClickImage);
-btnLoadMore.addEventListener("click", onClickBtnLoadMore);
+// btnLoadMore.addEventListener("click", onClickBtnLoadMore);
 
 // function onInputSearch(event) {
 //     if (event.currentTarget.value === '') {
@@ -30,7 +30,7 @@ btnLoadMore.addEventListener("click", onClickBtnLoadMore);
 
 async function onInputSearch(event) {
   clearContainer();
-  btnLoadMore.classList.add("hidden");
+  // btnLoadMore.classList.add("hidden");
   if (event.target.value === "") {
     return;
   }
@@ -46,13 +46,29 @@ async function onInputSearch(event) {
       behavior: "smooth",
     });
 
-    if (images.length === 12) {
-      btnLoadMore.classList.remove("hidden");
-    }
+    // if (images.length === 12) {
+    // btnLoadMore.classList.remove("hidden");
+    // }
   } catch (error) {
     onError();
   }
 }
+
+//    IntersectionObserver
+const targetObserver = document.querySelector(".observer");
+
+const callback = (entries) => {
+  entries.forEach(async (entry) => {
+    if (entry.isIntersecting && apiService.searchQuery !== "") {
+      apiService.incrementPage();
+      const images = await apiService.fetchCard();
+      renderCard(images);
+    }
+  });
+};
+
+const observer = new IntersectionObserver(callback, { rootMargin: "100px" });
+observer.observe(targetObserver);
 
 // function onClickBtnLoadMore(event) {
 //     apiService.incrementPage()
@@ -61,24 +77,24 @@ async function onInputSearch(event) {
 //         .catch(onError)
 // }
 
-async function onClickBtnLoadMore(event) {
-  apiService.incrementPage();
+// async function onClickBtnLoadMore(event) {
+//   apiService.incrementPage();
 
-  try {
-    const images = await apiService.fetchCard();
-    renderCard(images);
-    scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
-    if (images.length < 12) {
-      console.log(images);
-      btnLoadMore.classList.add("hidden");
-    }
-  } catch (error) {
-    onError;
-  }
-}
+//   try {
+//     const images = await apiService.fetchCard();
+//     renderCard(images);
+//     scrollTo({
+//       top: document.body.scrollHeight,
+//       behavior: "smooth",
+//     });
+//     if (images.length < 12) {
+//       console.log(images);
+//       btnLoadMore.classList.add("hidden");
+//     }
+//   } catch (error) {
+//     onError;
+//   }
+// }
 
 function renderCard(cards) {
   cardContainer.insertAdjacentHTML("beforeend", templateCards(cards));
