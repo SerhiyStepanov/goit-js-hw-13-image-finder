@@ -8,7 +8,7 @@ import "basiclightbox/dist/basicLightbox.min.css";
 const form = document.querySelector("#search-form");
 const searchInputEl = document.querySelector("INPUT");
 const cardContainer = document.querySelector(".gallery");
-const btnLoadMore = document.querySelector(".load-more");
+// const btnLoadMore = document.querySelector(".load-more");
 
 const apiService = new ApiService();
 
@@ -41,34 +41,31 @@ async function onInputSearch(event) {
   try {
     const images = await apiService.fetchCard();
     renderCard(images);
-    scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
-
-    // if (images.length === 12) {
-    // btnLoadMore.classList.remove("hidden");
-    // }
+    if (images.length === 12) {
+      sectionObserver();
+      // btnLoadMore.classList.remove("hidden");
+    }
   } catch (error) {
     onError();
   }
 }
 
-//    IntersectionObserver
-const targetObserver = document.querySelector(".observer");
+function sectionObserver() {
+  const targetObserver = document.querySelector(".observer");
 
-const callback = (entries) => {
-  entries.forEach(async (entry) => {
-    if (entry.isIntersecting && apiService.searchQuery !== "") {
-      apiService.incrementPage();
-      const images = await apiService.fetchCard();
-      renderCard(images);
-    }
-  });
-};
+  const callback = (entries) => {
+    entries.forEach(async (entry) => {
+      if (entry.isIntersecting && apiService.searchQuery !== "") {
+        apiService.incrementPage();
+        const images = await apiService.fetchCard();
+        renderCard(images);
+      }
+    });
+  };
 
-const observer = new IntersectionObserver(callback, { rootMargin: "100px" });
-observer.observe(targetObserver);
+  const observer = new IntersectionObserver(callback, { rootMargin: "100px" });
+  observer.observe(targetObserver);
+}
 
 // function onClickBtnLoadMore(event) {
 //     apiService.incrementPage()
@@ -109,8 +106,8 @@ function clearContainer() {
 }
 
 function onClickImage(event) {
-  console.log(event.target.src);
-  console.log(event.target.dataset.source);
+  // console.log(event.target.src);
+  // console.log(event.target.dataset.source);
   if (event.target.nodeName === "IMG") {
     const instance = basicLightbox.create(
       `<img src="${event.target.dataset.source}" width="800" height="600">`
