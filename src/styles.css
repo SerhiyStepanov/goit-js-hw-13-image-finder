@@ -17,7 +17,7 @@ body {
   font-family: "Work Sans", sans-serif;
   font-size: 16px;
   line-height: 1.2;
-  background-color: #e1e1e1;
+  background-color: #e6e4e4;
 }
 
 img {
@@ -44,6 +44,8 @@ img {
 
 .photo-card {
   margin: 8px;
+  outline: 1px solid;
+  outline-color: #80808025;
 }
 
 button {
@@ -71,14 +73,17 @@ button:focus {
 
 .stats {
   display: flex;
+  outline-color: #80808025;
+  background-color: rgba(80, 80, 80, 0.1);
 }
 
 .stats-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   width: calc(100% / 4);
-  color: rgb(80, 10, 160);
+  /* color: rgb(80, 10, 160); */
 }
 
 .material-icons {
