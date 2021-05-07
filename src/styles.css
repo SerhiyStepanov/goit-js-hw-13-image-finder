@@ -26,6 +26,11 @@ img {
   height: auto;
 }
 
+img:hover,
+img:focus {
+  cursor: zoom-in;
+}
+
 .search-form {
   text-align: center;
   outline: none;
@@ -39,7 +44,7 @@ img {
 
 .list-card {
   display: block;
-  cursor: pointer;
+
   transition: transform 300ms ease;
 }
 
